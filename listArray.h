@@ -1,5 +1,5 @@
 #include <ostream>
-#include "List.h"
+#include "list.h"
 
 template <typename T> 
 class ListArray : public List<T> {
@@ -14,7 +14,14 @@ class ListArray : public List<T> {
 			return;
 		}
 
-		if
+		int* listanueva = new T[new_size];
+
+		for (int i = 0; i < size; i++) {
+            		listanueva[i] = lista[i];
+        	}
+		delete[] lista;
+		arr = new_arr;
+		max = new_max;
 	}
 
     public:	
