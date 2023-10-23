@@ -10,17 +10,20 @@ class ListArray : public List<T> {
 	int n;
 	static const int MINSIZE;
 	void resize(int new_size){
-		/*Aún por hacer*/
+		if (new_size == max){
+			return;
+		}
+
+		if
 	}
 
-    public:
-        // miembros públicos, incluidos los heredados de List<T>
-	
-	
+    public:	
 
 	ListArray(){
-		new T lista[MINSIZE];
-		MINSIZE = 2;
+		this->MINSIZE = MINSIZE = 2;
+		this->max = max;
+		this->n = n;
+		new T lista[MINSIZE];		
 	}
 	
 	~ListArray(){
@@ -52,37 +55,57 @@ class ListArray : public List<T> {
 		}
 	}
     	
-	void append(T e){
+	void List::append(T e){
 		lista(n) = e;
 	}
 
-	void prepend(T e){
+	void List::prepend(T e){
 		lista(n - (n + 1)) = e;
 	}
 	
-	T remove(int pos){
-		/*WIP*/
+	T List::remove(int pos){
+		if(pos < 0 || pos > (max -1)){
+			throw std::out_of_range("La posición no es válida.\n");
+		}
+		else{
+			T elemento = lista[pos];
+			delete lista[pos];
+			for(int i = pos; i < (max -1); i++){
+				lista[pos] = lista[pos+i];
+			}
+		return elemento;	
+		}
 	}
 	
-	T get(int pos){
+	T List::get(int pos){
 		if(pos < 0 || pos > (max - 1)){
 			throw std::out_of_range("La posición no es válida.\n");
 		}
 		else{
-			/*WIP*/
+			return lista[pos];
 		}
 	}
 	
-	int search(T e){
-		/*WIP*/
+	int List::search(T e){
+		for(int i = 0; i < (max -1); i++ ){
+			if(e == i){
+				return i;	
+			}
+		}
+		return -1;
 	}
 
-	bool empty(){
-		/*WIP*/
+	bool List::empty(){
+		if(lista[0] == nullptr){
+			return 1;
+		}
+		else{ 
+			return 0;
+		}
 	}
 
-	int size(){
-		cout<< "En la lista hay " << n-1 << " elementos." << endl;
+	int List::size(){
+		return n;
 	}
 };
 
