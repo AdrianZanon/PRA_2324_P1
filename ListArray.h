@@ -8,7 +8,7 @@ class ListArray : public List<T> {
         T* lista;
 	int max;
 	int n;
-	static const int MINSIZE;
+	static const int MINSIZE = 2;
 	void resize(int new_size){
 		if (new_size == max){
 			return;
@@ -28,7 +28,6 @@ class ListArray : public List<T> {
     public:	
 
 	ListArray(){
-		this->MINSIZE = MINSIZE = 2;
 		this->max = max;
 		this->n = n;
 		T* lista = new T[MINSIZE];
@@ -48,9 +47,9 @@ class ListArray : public List<T> {
 	       	}
 	}
 	
-	friend std::ostream& operator<<(std::ostream &out, const ListArray<T> &lista){
-		for (int i = 0; i < (lista.max - 1); i++) {
-            	out << lista[i] << " ";
+	friend std::ostream& operator<<(std::ostream &out, const ListArray<T> &objeto){
+		for (int i = 0; i < (objeto.max - 1); i++) {
+            	out << objeto.lista[i] << " ";
        		}
 		return out;
 	}
@@ -67,11 +66,11 @@ class ListArray : public List<T> {
 	}
     	
 	void append(T e){
-		lista(n) = e;
+		lista[n] = e;
 	}
 
 	void prepend(T e){
-		lista(n - (n + 1)) = e;
+		lista[n - (n + 1)] = e;
 	}
 	
 	T remove(int pos){
@@ -80,7 +79,6 @@ class ListArray : public List<T> {
 		}
 		else{
 			T elemento = lista[pos];
-			delete lista[pos];
 			for(int i = pos; i < (max -1); i++){
 				lista[pos] = lista[pos+i];
 			}
@@ -107,7 +105,7 @@ class ListArray : public List<T> {
 	}
 
 	bool empty(){
-		if(lista[0] == nullptr){
+		if(n == 0){
 			return 1;
 		}
 		else{ 
