@@ -14,7 +14,7 @@ class ListArray : public List<T> {
 			return;
 		}
 
-		int* listanueva = new T[new_size];
+		T* listanueva = new T[new_size];
 		int new_max;
 
 		for (int i = 0; i < new_size; i++) {
@@ -28,8 +28,8 @@ class ListArray : public List<T> {
     public:	
 
 	ListArray(){
-		this->max = max;
-		this->n = n;
+		max = MINSIZE;
+		n = 0;
 		T* lista = new T[MINSIZE];
 		
 	}
@@ -39,7 +39,7 @@ class ListArray : public List<T> {
 	}
 
 	T operator[](int pos){
-		if (pos >= 0 && pos < (max - 1)) { 
+		if (pos >= 0 && pos < n { 
 			return lista[pos]; 
 		}
 		else { 
@@ -57,37 +57,49 @@ class ListArray : public List<T> {
 
 
 	void insert(int pos, T e){ 
-		if(pos < 0 || pos > (max - 1)){
+		if(pos < 0 || pos > n){
 			throw std::out_of_range("La posición no es válida.\n");
 		}
 		else {
-			lista[pos] = e;	
+			if (n == max) {
+                		resize(2 * max);
+            		}
+            		for (int i = n; i > pos; i--) {
+                		lista[i] = lista[i - 1];
+           		 }
+            		lista[pos] = e;
+            		n++;
 		}
 	}
     	
 	void append(T e){
+		if (n == max) {
+            		resize(2 * max);
+       		}
 		lista[n] = e;
+		n++;
 	}
 
 	void prepend(T e){
-		lista[n - (n + 1)] = e;
+		insert(0, e);
 	}
 	
 	T remove(int pos){
-		if(pos < 0 || pos > (max -1)){
+		if(pos < 0 || pos > n){
 			throw std::out_of_range("La posición no es válida.\n");
 		}
 		else{
 			T elemento = lista[pos];
-			for(int i = pos; i < (max -1); i++){
+			for(int i = pos; i < n; i++){
 				lista[pos] = lista[pos+i];
 			}
+		n--;
 		return elemento;	
 		}
 	}
 	
 	T get(int pos){
-		if(pos < 0 || pos > (max - 1)){
+		if(pos < 0 || pos > n){
 			throw std::out_of_range("La posición no es válida.\n");
 		}
 		else{
@@ -96,8 +108,8 @@ class ListArray : public List<T> {
 	}
 	
 	int search(T e){
-		for(int i = 0; i < (max -1); i++ ){
-			if(e == i){
+		for(int i = 0; i < n; i++ ){
+			if(e == lista[i]){
 				return i;	
 			}
 		}
