@@ -1,4 +1,5 @@
 #include <ostream>
+#include <iostream>
 #include "List.h"
 
 template <typename T> 
@@ -10,12 +11,12 @@ class ListArray : public List<T> {
 	int n;
 	static const int MINSIZE = 2;
 	void resize(int new_size){
-		if (new_size == max){
+		if (new_size == max || new_size <= 0 ){
 			return;
 		}
 
 		T* listanueva = new T[new_size];
-		int new_max;
+		int new_max=new_size;
 
 		for (int i = 0; i < new_size; i++) {
             		listanueva[i] = lista[i];
@@ -30,12 +31,13 @@ class ListArray : public List<T> {
 	ListArray(){
 		max = MINSIZE;
 		n = 0;
-		T* lista = new T[MINSIZE];
+		lista = new T[MINSIZE];
 		
 	}
 	
 	~ListArray(){
 		delete[] lista;
+		lista = nullptr;
 	}
 
 	T operator[](int pos){
@@ -48,9 +50,11 @@ class ListArray : public List<T> {
 	}
 	
 	friend std::ostream& operator<<(std::ostream &out, const ListArray<T> &objeto){
+		std::cout << "List => [";
 		for (int i = 0; i < objeto.n; i++) {
-            		out << objeto.lista[i] << " ";
+            		out  << " " << std::endl << objeto.lista[i];
        		}
+		std::cout << std::endl << "]";
 		return out;
 	}
 
