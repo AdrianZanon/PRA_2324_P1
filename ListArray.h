@@ -39,7 +39,7 @@ class ListArray : public List<T> {
 	}
 
 	T operator[](int pos){
-		if (pos >= 0 && pos < n { 
+		if (pos >= 0 && pos < n){ 
 			return lista[pos]; 
 		}
 		else { 
@@ -48,8 +48,8 @@ class ListArray : public List<T> {
 	}
 	
 	friend std::ostream& operator<<(std::ostream &out, const ListArray<T> &objeto){
-		for (int i = 0; i < (objeto.max - 1); i++) {
-            	out << objeto.lista[i] << " ";
+		for (int i = 0; i < objeto.n; i++) {
+            		out << objeto.lista[i] << " ";
        		}
 		return out;
 	}
@@ -64,9 +64,11 @@ class ListArray : public List<T> {
 			if (n == max) {
                 		resize(2 * max);
             		}
-            		for (int i = n; i > pos; i--) {
-                		lista[i] = lista[i - 1];
-           		 }
+			if (n > 0){
+            			for (int i = n; i > pos; i--) {
+                			lista[i] = lista[i - 1];
+           			}
+			}
             		lista[pos] = e;
             		n++;
 		}
@@ -85,13 +87,13 @@ class ListArray : public List<T> {
 	}
 	
 	T remove(int pos){
-		if(pos < 0 || pos > n){
+		if(pos < 0 || pos >= n){
 			throw std::out_of_range("La posición no es válida.\n");
 		}
 		else{
 			T elemento = lista[pos];
-			for(int i = pos; i < n; i++){
-				lista[pos] = lista[pos+i];
+			for(int i = pos; i < (n - 1); i++){
+				lista[i] = lista[i+1];
 			}
 		n--;
 		return elemento;	
